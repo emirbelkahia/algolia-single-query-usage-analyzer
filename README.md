@@ -1,44 +1,65 @@
-# algolia-usage-analyzer-per-index
+# Algolia Single Query Usage Analyzer
 
-Overview
---------
-This repository contains a web-based tool for visualizing data retrieved from the Algolia API. The application allows users to fetch and display search request data from Algolia indices over a specified period. It includes functionalities for data processing, chart rendering, and error handling.
+Visualize Algolia search request volumes per index over time with Chart.js.
 
-Features
---------
-- Form Submission: Users can input parameters: application ID and API Keys for credentials, Number of days and name of indices to perform the analysis
-- Data Fetching: The application makes API requests to the Algolia Usage API to fetch search request data per index.
-- Chart Rendering: Displays the fetched data as a bar chart using Chart.js.
-- Error Handling: Includes checks for invalid API keys and issues with data fetching.
-- Chart Downloading: Users can download the generated chart as a PNG image.
+**🔗 Tool:** [emirbelkahia.github.io/algolia-single-query-usage-analyzer](https://emirbelkahia.github.io/algolia-single-query-usage-analyzer/)
 
-Installation
--------------
-Recommended utilisation is to go here and use directly: https://emirbelkahia.github.io/algolia-usage-analyzer-per-index/
+> **⚠️ Important Limitation:** This tool only tracks **single query traffic**. Multi-query traffic (which can target multiple indices simultaneously and counts as 1 operation in Algolia billing) cannot be accurately attributed to specific indices and is therefore excluded. This tool is **only useful for applications using primarily single queries** — for most Algolia implementations with multi-query traffic, this provides an incomplete view of per-index usage.
 
-Usage
------
-Enter the required parameters in the form:
-- Algolia API Key (requires an Algolia paid account with a quota)
-- Algolia Application ID
-- Number of days for data retrieval
-- Comma-separated list of indices
+## What it does
 
-Submit the form to fetch and visualize the data.
-Optionally, download the generated chart.
+This web-based tool fetches search request data from the Algolia Usage API and displays it as an interactive bar chart. It helps visualize which indices generate the most API traffic over a specified time period.
 
-Technical Details
-------------------
-The main JavaScript file (script.js) handles the logic for form submission, API requests, data processing, and chart rendering.
-Data for each index is fetched separately, including total search requests and query suggestions.
-Query suggestion counts are subtracted from total search requests for a more accurate count.
-The application is built to handle multiple indices and aggregate their data on a single chart.
+**Key features:**
+- Fetch usage data for multiple indices at once
+- Visualize data as a Chart.js bar chart
+- Download chart as PNG
+- Query suggestion counts automatically subtracted for accuracy
 
-Dependencies
-------------
-Chart.js for chart rendering.
-A valid Algolia account with API Key and Application ID.
+## Use Cases
 
-License
--------
-This project is open source and available under the MIT License.
+**Best for:**
+- Applications using primarily single queries (not multi-queries)
+- Quick per-index usage overview
+- CS/Operations teams monitoring API consumption
+
+**Not suitable for:**
+- Applications with significant multi-query traffic (most modern implementations)
+- Precise quota attribution across all indices
+
+## How to Use
+
+1. **Access the tool:** Visit [emirbelkahia.github.io/algolia-single-query-usage-analyzer](https://emirbelkahia.github.io/algolia-single-query-usage-analyzer/)
+
+2. **Enter your credentials:**
+   - Algolia Application ID
+   - Algolia Usage API Key (requires paid account with quota access)
+   - Number of days (max 90)
+   - Comma-separated list of indices
+
+3. **Generate chart:**
+   - Submit the form to fetch and visualize data
+   - Optionally download the chart as PNG
+
+**Tip:** Save your comma-separated index list in a text file for quick copy/paste on repeat use.
+
+## Technical Details
+
+- **Frontend only:** Pure JavaScript, runs entirely in the browser
+- **No backend:** API keys stay in your browser
+- **Chart.js:** For data visualization
+- **Data processing:** Query suggestions are subtracted from total search requests for accuracy
+
+## Limitation Details
+
+Algolia's billing model counts multi-queries as a single operation, even when targeting multiple indices. Since multi-query traffic cannot be precisely attributed to individual indices, this tool only analyzes single-query traffic. For applications with heavy multi-query usage, the data shown here will be incomplete.
+
+## About
+
+Built by [Emir Belkahia](https://www.linkedin.com/in/emirbelkahia/), Customer Success Manager at Algolia, in 2024.
+
+Not an official Algolia product.
+
+## License
+
+MIT License
